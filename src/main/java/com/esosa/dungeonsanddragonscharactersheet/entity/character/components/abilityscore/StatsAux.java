@@ -1,4 +1,4 @@
-package com.esosa.dungeonsanddragonscharactersheet.entity.character.components;
+package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.abilityscore;
 
 import jakarta.persistence.*;
 

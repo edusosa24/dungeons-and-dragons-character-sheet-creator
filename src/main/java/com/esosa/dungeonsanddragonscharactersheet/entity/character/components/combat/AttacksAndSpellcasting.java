@@ -1,0 +1,80 @@
+package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.combat;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "attacks_and_spellcasting")
+public class AttacksAndSpellcasting {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "weapon_one")
+    private WeaponAux weaponOne;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "weapon_two")
+    private WeaponAux weaponTwo;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "weapon_three")
+    private WeaponAux weaponThree;
+
+    @Column(name = "extra")
+    private String extra;
+
+    public AttacksAndSpellcasting() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public WeaponAux getWeaponOne() {
+        return weaponOne;
+    }
+
+    public void setWeaponOne(WeaponAux weaponOne) {
+        this.weaponOne = weaponOne;
+    }
+
+    public WeaponAux getWeaponTwo() {
+        return weaponTwo;
+    }
+
+    public void setWeaponTwo(WeaponAux weaponTwo) {
+        this.weaponTwo = weaponTwo;
+    }
+
+    public WeaponAux getWeaponThree() {
+        return weaponThree;
+    }
+
+    public void setWeaponThree(WeaponAux weaponThree) {
+        this.weaponThree = weaponThree;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
+    @Override
+    public String toString() {
+        return "AttacksAndSpellcasting{" +
+                "weaponOne=" + weaponOne +
+                ", weaponTwo=" + weaponTwo +
+                ", weaponThree=" + weaponThree +
+                ", extra='" + extra + '\'' +
+                '}';
+    }
+}

@@ -1,7 +1,8 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character;
 
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.AbilityScore;
-import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.SavingThrows;
+import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.Combat;
+import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.Spells;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import jakarta.persistence.*;
 
@@ -26,8 +27,16 @@ public class Character {
     private Timestamp lastModified;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "character_id")
+    @PrimaryKeyJoinColumn(name = "character_id")
     private AbilityScore abilityScore;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "character_id")
+    private Combat combat;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "character_id")
+    private Spells spells;
 
 
     public Character() {
@@ -70,7 +79,7 @@ public class Character {
         this.lastModified = lastModified;
     }
 
-    public void updateLastModified(){
+    public void updateLastModified() {
         this.lastModified = new Timestamp(System.currentTimeMillis());
     }
 
@@ -82,6 +91,22 @@ public class Character {
         this.abilityScore = abilityScore;
     }
 
+    public Combat getCombat() {
+        return combat;
+    }
+
+    public void setCombat(Combat combat) {
+        this.combat = combat;
+    }
+
+    public Spells getSpells() {
+        return spells;
+    }
+
+    public void setSpells(Spells spells) {
+        this.spells = spells;
+    }
+
     @Override
     public String toString() {
         return "Character{" +
@@ -89,6 +114,8 @@ public class Character {
                 ", name='" + name + '\'' +
                 ", lastModified=" + lastModified +
                 ", abilityScore=" + abilityScore +
+                ", combat=" + combat +
+                ", spells=" + spells +
                 '}';
     }
 }

@@ -1,5 +1,8 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character.components;
 
+import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.abilityscore.SavingThrows;
+import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.abilityscore.Skills;
+import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.abilityscore.Stats;
 import jakarta.persistence.*;
 
 @Entity
