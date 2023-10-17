@@ -1,8 +1,6 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character;
 
-import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.AbilityScore;
-import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.Combat;
-import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.Spells;
+import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.*;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import jakarta.persistence.*;
 
@@ -38,6 +36,25 @@ public class Character {
     @PrimaryKeyJoinColumn(name = "character_id")
     private Spells spells;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "character_id")
+    private General general;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "character_id")
+    private EquipmentAndMoney equipmentAndMoney;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "character_id")
+    private Appearance appearance;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "character_id")
+    private Backstory backstory;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "character_id")
+    private FeaturesTraitsAndOtherProficiencies featuresTraitsAndOtherProficiencies;
 
     public Character() {
     }
@@ -107,6 +124,46 @@ public class Character {
         this.spells = spells;
     }
 
+    public General getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(General general) {
+        this.general = general;
+    }
+
+    public EquipmentAndMoney getEquipmentAndMoney() {
+        return equipmentAndMoney;
+    }
+
+    public void setEquipmentAndMoney(EquipmentAndMoney equipmentAndMoney) {
+        this.equipmentAndMoney = equipmentAndMoney;
+    }
+
+    public Appearance getAppearance() {
+        return appearance;
+    }
+
+    public void setAppearance(Appearance appearance) {
+        this.appearance = appearance;
+    }
+
+    public Backstory getBackstory() {
+        return backstory;
+    }
+
+    public void setBackstory(Backstory backstory) {
+        this.backstory = backstory;
+    }
+
+    public FeaturesTraitsAndOtherProficiencies getFeaturesTraitsAndOtherProficiencies() {
+        return featuresTraitsAndOtherProficiencies;
+    }
+
+    public void setFeaturesTraitsAndOtherProficiencies(FeaturesTraitsAndOtherProficiencies featuresTraitsAndOtherProficiencies) {
+        this.featuresTraitsAndOtherProficiencies = featuresTraitsAndOtherProficiencies;
+    }
+
     @Override
     public String toString() {
         return "Character{" +
@@ -116,6 +173,11 @@ public class Character {
                 ", abilityScore=" + abilityScore +
                 ", combat=" + combat +
                 ", spells=" + spells +
+                ", general=" + general +
+                ", equipmentAndMoney=" + equipmentAndMoney +
+                ", appearance=" + appearance +
+                ", backstory=" + backstory +
+                ", featuresTraitsAndOtherProficiencies=" + featuresTraitsAndOtherProficiencies +
                 '}';
     }
 }
