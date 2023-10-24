@@ -4,6 +4,9 @@ import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.ab
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.abilityscore.Skills;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.abilityscore.Stats;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "ability_score")
@@ -14,12 +17,18 @@ public class AbilityScore {
     private long id;
 
     @Column(name = "inspiration")
+    @Min(value = 0, message = "Inspiration cannot be smaller than 0")
+    @Max(value = 999, message = "Inspiration cannot be bigger than 999")
     private int inspiration;
 
     @Column(name = "proficiency_bonus")
+    @Min(value = 0, message = "ProficiencyBonus cannot be smaller than 0")
+    @Max(value = 999, message = "ProficiencyBonus cannot be bigger than 999")
     private int proficiencyBonus;
 
     @Column(name = "passive_wisdom")
+    @Min(value = 0, message = "PassiveWisdom cannot be smaller than 0")
+    @Max(value = 999, message = "PassiveWisdom cannot be bigger than 999")
     private int passiveWisdom;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

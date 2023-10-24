@@ -1,6 +1,10 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.spells;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "spell_known")
@@ -11,9 +15,13 @@ public class SpellKnown {
     private long id;
 
     @Column(name = "level")
+    @Min(value = 1, message = "Spell Level cannot be smaller than 1")
+    @Max(value = 9, message = "Spell Level cannot be bigger than 9")
     private int level;
 
     @Column(name = "name")
+    @Pattern(regexp = "^[A-Za-z0-9\\d]$", message = "Spell name can only contain letters, numbers and spaces")
+    @Size(max = 255, message = "Spell name can be 255 character long max")
     private String name;
 
     @Column(name = "prepared")

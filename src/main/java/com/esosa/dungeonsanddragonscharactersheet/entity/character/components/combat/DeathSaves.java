@@ -1,6 +1,8 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.combat;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "death_saves")
@@ -11,9 +13,13 @@ public class DeathSaves {
     private long id;
 
     @Column(name = "success")
+    @Min(value = 0, message = "Success cannot be smaller than 0")
+    @Max(value = 3, message = "Success cannot be bigger than 3")
     private int success;
 
     @Column(name = "failure")
+    @Min(value = 0, message = "Failure cannot be smaller than 0")
+    @Max(value = 3, message = "Failure cannot be bigger than 3")
     private int failure;
 
     public DeathSaves() {

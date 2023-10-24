@@ -1,6 +1,9 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character.components;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "equipment_and_money")
@@ -11,21 +14,32 @@ public class EquipmentAndMoney {
     private long id;
 
     @Column(name = "copper")
+    @Min(value = 0, message = "Copper cannot be smaller than 0")
+    @Max(value = 9999, message = "Copper cannot be bigger than 9999")
     private int copper;
 
     @Column(name = "silver")
+    @Min(value = 0, message = "Silver cannot be smaller than 0")
+    @Max(value = 9999, message = "Silver cannot be bigger than 9999")
     private int silver;
 
     @Column(name = "electrum")
+    @Min(value = 0, message = "Electrum cannot be smaller than 0")
+    @Max(value = 9999, message = "Electrum cannot be bigger than 9999")
     private int electrum;
 
     @Column(name = "gold")
+    @Min(value = 0, message = "Gold cannot be smaller than 0")
+    @Max(value = 9999, message = "Gold cannot be bigger than 9999")
     private int gold;
 
     @Column(name = "platinum")
+    @Min(value = 0, message = "Platinum cannot be smaller than 0")
+    @Max(value = 9999, message = "Platinum cannot be bigger than 9999")
     private int platinum;
 
     @Column(name = "equipment")
+    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "Equipment can only contain letters, numbers, spaces and .,!?+-")
     private String equipment;
 
     public EquipmentAndMoney() {

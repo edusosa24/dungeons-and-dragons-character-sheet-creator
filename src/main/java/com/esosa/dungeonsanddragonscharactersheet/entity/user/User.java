@@ -1,10 +1,11 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.user;
 
-import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -14,10 +15,16 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
+    @NotNull(message = "Username cannot be null")
+    @Size(min = 6, max =  16, message = "Username must be between 6 and 16 characters long")
+    @Pattern(regexp = "^[A-Za-z0-9]$", message = "Username can only contain letters and numbers")
     private String username;
 
     @Column(name = "password")
+    @NotNull(message = "Password cannot be null")
+    @Size(min = 8, max =  16, message = "Password must be between 8 and 16 characters long")
+    @Pattern(regexp = "^[A-Za-z0-9@#$%^&+=*!_()]$", message = "Password can contain letters, numbers, and @#$%^&+=*!_()")
     private String password;
 
     public User() {

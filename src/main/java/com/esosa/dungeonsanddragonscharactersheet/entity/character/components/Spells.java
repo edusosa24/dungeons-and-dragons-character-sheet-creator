@@ -4,6 +4,10 @@ import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.sp
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.spells.SpellKnown;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.spells.SpellSlots;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +21,23 @@ public class Spells {
     private long id;
 
     @Column(name = "spellcasting_class")
+    @Pattern(regexp = "^[A-Za-z0-9\\d?+-]$", message = "SpellcastingClass can only contain letters and numbers, spaces and ?+-")
+    @Size(max = 64, message = "SpellcastingClass can be 64 character long max")
     private String spellcastingClass;
 
     @Column(name = "spellcasting_ability")
+    @Pattern(regexp = "^[A-Za-z0-9\\d?+-]$", message = "SpellcastingAbility can only contain letters and numbers, spaces and ?+-")
+    @Size(max = 16, message = "SpellcastingAbility can be 16 character long max")
     private String spellcastingAbility;
 
     @Column(name = "spell_save_dc")
+    @Min(value = 0, message = "SpellSaveDc cannot be smaller than 0")
+    @Max(value = 999, message = "SpellSaveDc cannot be bigger than 999")
     private int spellSaveDc;
 
     @Column(name = "spell_bonus_attack")
+    @Min(value = 0, message = "SpellBonusAttack cannot be smaller than 0")
+    @Max(value = 999, message = "SpellBonusAttack cannot be bigger than 999")
     private int spellBonusAttack;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

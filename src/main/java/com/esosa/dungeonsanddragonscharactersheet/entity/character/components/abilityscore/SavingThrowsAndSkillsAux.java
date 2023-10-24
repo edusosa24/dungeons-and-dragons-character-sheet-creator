@@ -1,6 +1,8 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.abilityscore;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "saving_throws_and_skills_aux")
@@ -13,6 +15,8 @@ public class SavingThrowsAndSkillsAux {
     @Column(name = "proficiency")
     private boolean proficiency;
 
+    @Min(value = -5, message = "Modifiers cannot be smaller than -5")
+    @Max(value = 10, message = "Modifiers cannot be bigger than 10")
     @Column(name = "bonus")
     private int bonus;
 

@@ -3,6 +3,10 @@ package com.esosa.dungeonsanddragonscharactersheet.entity.character.components;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.combat.AttacksAndSpellcasting;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.combat.DeathSaves;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "combat")
@@ -13,27 +17,43 @@ public class Combat {
     private long id;
 
     @Column(name = "armor_class")
+    @Min(value = 0, message = "ArmorClass cannot be smaller than 0")
+    @Max(value = 999, message = "ArmorClass cannot be bigger than 999")
     private int armorClass;
 
     @Column(name = "initiative")
+    @Min(value = 0, message = "Initiative cannot be smaller than 0")
+    @Max(value = 999, message = "Initiative cannot be bigger than 999")
     private int initiative;
 
     @Column(name = "speed")
+    @Min(value = 0, message = "Speed cannot be smaller than 0")
+    @Max(value = 999, message = "Speed cannot be bigger than 999")
     private int speed;
 
     @Column(name = "max_hitpoints")
+    @Min(value = 0, message = "MaxHitpoints cannot be smaller than 0")
+    @Max(value = 999, message = "MaxHitpoints cannot be bigger than 999")
     private int maxHitpoints;
 
     @Column(name = "current_hitpoints")
+    @Min(value = 0, message = "CurrentHitpoints cannot be smaller than 0")
+    @Max(value = 999, message = "CurrentHitpoints cannot be bigger than 999")
     private int currentHitpoints;
 
     @Column(name = "temporary_hitpoints")
+    @Min(value = 0, message = "TemporaryHitpoints cannot be smaller than 0")
+    @Max(value = 999, message = "TemporaryHitpoints cannot be bigger than 999")
     private int temporaryHitpoints;
 
     @Column(name = "hit_dice")
+    @Pattern(regexp = "^[A-Za-z0-9\\d.()?+-]$", message = "HitDice can only contain letters and numbers, spaces and ?+-")
+    @Size(max = 12, message = "HitDice can be 12 character long max")
     private String hitDice;
 
     @Column(name = "hit_dice_total")
+    @Pattern(regexp = "^[A-Za-z0-9\\d.()?+-]$", message = "HitDiceTotal can only contain letters and numbers, spaces and ?+-")
+    @Size(max = 12, message = "HitDiceTotal can be 12 character long max")
     private String hitDiceTotal;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

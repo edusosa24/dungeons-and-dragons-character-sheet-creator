@@ -1,6 +1,7 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.combat;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "attacks_and_spellcasting")
@@ -23,6 +24,7 @@ public class AttacksAndSpellcasting {
     private WeaponAux weaponThree;
 
     @Column(name = "extra")
+    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.()?+-]$", message = "AttackAndSpellcasting extra can only contain letters and numbers, spaces and .()?+-")
     private String extra;
 
     public AttacksAndSpellcasting() {
