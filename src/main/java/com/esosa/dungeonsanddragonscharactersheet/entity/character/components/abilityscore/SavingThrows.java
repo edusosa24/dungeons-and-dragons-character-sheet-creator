@@ -35,6 +35,12 @@ public class SavingThrows {
     private SavingThrowsAndSkillsAux charisma;
 
     public SavingThrows() {
+        this.strength = new SavingThrowsAndSkillsAux();
+        this.dexterity = new SavingThrowsAndSkillsAux();
+        this.constitution = new SavingThrowsAndSkillsAux();
+        this.intelligence = new SavingThrowsAndSkillsAux();
+        this.wisdom = new SavingThrowsAndSkillsAux();
+        this.charisma = new SavingThrowsAndSkillsAux();
     }
 
     public long getId() {

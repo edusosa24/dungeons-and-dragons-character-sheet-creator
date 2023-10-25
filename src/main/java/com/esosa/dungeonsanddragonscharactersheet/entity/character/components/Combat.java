@@ -65,6 +65,8 @@ public class Combat {
     private AttacksAndSpellcasting attacksAndSpellcasting;
 
     public Combat() {
+        this.deathSaves = new DeathSaves();
+        this.attacksAndSpellcasting = new AttacksAndSpellcasting();
     }
 
     public long getId() {

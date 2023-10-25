@@ -3,9 +3,12 @@ package com.esosa.dungeonsanddragonscharactersheet.dao;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 public class AppDAOImpl implements AppDAO{
@@ -21,7 +24,6 @@ public class AppDAOImpl implements AppDAO{
     /*                      */
 
     @Override
-    @Transactional
     public void createUser(User newUser) {
         entityManager.persist(newUser);
 
@@ -34,7 +36,6 @@ public class AppDAOImpl implements AppDAO{
     }
 
     @Override
-    @Transactional
     public void deleteUser(long userId) {
         User theUser = entityManager.find(User.class, userId);
         entityManager.remove(theUser);
@@ -46,7 +47,6 @@ public class AppDAOImpl implements AppDAO{
     /*                           */
 
     @Override
-    @Transactional
     public void createCharacter(Character newCharacter) {
         entityManager.persist(newCharacter);
         System.out.println("Character -> " + newCharacter + " -> successfully created.");
@@ -59,7 +59,20 @@ public class AppDAOImpl implements AppDAO{
     }
 
     @Override
-    @Transactional
+    public void updateCharacter(Character updatedCharacter) {
+        entityManager.persist(updatedCharacter);
+        System.out.println("Character -> " + updatedCharacter + " -> successfully updated.");
+    }
+
+    @Override
+    public List<Character> getCharactersFromUser(long userId) {
+        TypedQuery<Character> theQuery = entityManager.createQuery("FROM Character WHERE user.id = :data", Character.class);
+        theQuery.setParameter("data", userId);
+        List<Character> characters = theQuery.getResultList();
+        return characters;
+    }
+
+    @Override
     public void deleteCharacter(long characterId) {
         Character theCharacter = entityManager.find(Character.class, characterId);
         entityManager.remove(theCharacter);

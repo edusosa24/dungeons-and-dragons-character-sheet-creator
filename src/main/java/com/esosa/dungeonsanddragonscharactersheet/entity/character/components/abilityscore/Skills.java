@@ -83,6 +83,24 @@ public class Skills {
     private SavingThrowsAndSkillsAux survival;
 
     public Skills() {
+        this.acrobatics = new SavingThrowsAndSkillsAux();
+        this.animalHandling = new SavingThrowsAndSkillsAux();
+        this.arcana = new SavingThrowsAndSkillsAux();
+        this.athletics = new SavingThrowsAndSkillsAux();
+        this.deception = new SavingThrowsAndSkillsAux();
+        this.history = new SavingThrowsAndSkillsAux();
+        this.insight = new SavingThrowsAndSkillsAux();
+        this.intimidation = new SavingThrowsAndSkillsAux();
+        this.investigation = new SavingThrowsAndSkillsAux();
+        this.medicine = new SavingThrowsAndSkillsAux();
+        this.nature = new SavingThrowsAndSkillsAux();
+        this.perception = new SavingThrowsAndSkillsAux();
+        this.performance = new SavingThrowsAndSkillsAux();
+        this.persuasion = new SavingThrowsAndSkillsAux();
+        this.religion = new SavingThrowsAndSkillsAux();
+        this.sleightOfHand = new SavingThrowsAndSkillsAux();
+        this.stealth = new SavingThrowsAndSkillsAux();
+        this.survival = new SavingThrowsAndSkillsAux();
     }
 
     public long getId() {

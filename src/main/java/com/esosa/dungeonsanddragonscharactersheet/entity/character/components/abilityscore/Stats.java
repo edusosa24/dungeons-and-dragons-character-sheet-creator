@@ -35,6 +35,12 @@ public class Stats {
     private StatsAux charisma;
 
     public Stats() {
+        this.strength = new StatsAux();
+        this.dexterity = new StatsAux();
+        this.constitution = new StatsAux();
+        this.intelligence = new StatsAux();
+        this.wisdom = new StatsAux();
+        this.charisma = new StatsAux();
     }
 
     public long getId() {

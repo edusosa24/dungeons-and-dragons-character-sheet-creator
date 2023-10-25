@@ -28,6 +28,9 @@ public class AttacksAndSpellcasting {
     private String extra;
 
     public AttacksAndSpellcasting() {
+        this.weaponOne = new WeaponAux();
+        this.weaponTwo = new WeaponAux();
+        this.weaponThree = new WeaponAux();
     }
 
     public long getId() {

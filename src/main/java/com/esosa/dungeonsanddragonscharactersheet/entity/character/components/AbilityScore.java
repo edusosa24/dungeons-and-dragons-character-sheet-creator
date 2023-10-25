@@ -44,6 +44,9 @@ public class AbilityScore {
     private SavingThrows savingThrows;
 
     public AbilityScore() {
+        this.stats = new Stats();
+        this.skills = new Skills();
+        this.savingThrows = new SavingThrows();
     }
 
     public AbilityScore(int inspiration, int proficiencyBonus, int passiveWisdom) {

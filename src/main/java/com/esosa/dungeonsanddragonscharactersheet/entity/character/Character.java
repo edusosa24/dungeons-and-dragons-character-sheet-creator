@@ -3,6 +3,7 @@ package com.esosa.dungeonsanddragonscharactersheet.entity.character;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.*;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -17,6 +18,7 @@ public class Character {
     private long id;
 
     @Column(name = "name")
+    @NotNull
     @Size(max = 64, message = "Character name can be 64 characters long max")
     @Pattern(regexp = "^[a-zA-Z0-9\\s]$", message = "Character name should only contain letters and numbers and spaces")
     private String name;
@@ -66,6 +68,14 @@ public class Character {
     public Character(String name) {
         this.name = name;
         this.lastModified = new Timestamp(System.currentTimeMillis());
+        this.abilityScore = new AbilityScore();
+        this.combat = new Combat();
+        this.spells = new Spells();
+        this.equipmentAndMoney = new EquipmentAndMoney();
+        this.general = new General();
+        this.appearance = new Appearance();
+        this.backstory = new Backstory();
+        this.featuresTraitsAndOtherProficiencies = new FeaturesTraitsAndOtherProficiencies();
     }
 
     public long getId() {
