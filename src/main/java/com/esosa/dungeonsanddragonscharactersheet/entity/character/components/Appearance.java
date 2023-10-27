@@ -31,22 +31,22 @@ public class Appearance {
 
     @Column(name = "eyes")
     @Size(max = 64, message = "Character eyes cannot be longer than 64 characters")
-    @Pattern(regexp = "^[a-zA-Z\\s]$", message = "Character eyes can only contain letters and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z\\s]+)$", message = "Character eyes can only contain letters and spaces")
     private String eyes;
 
     @Column(name = "skin")
     @Size(max = 64, message = "Character skin cannot be longer than 64 characters")
-    @Pattern(regexp = "^[a-zA-Z\\s]$", message = "Character skin can only contain letters and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z\\s]+)$", message = "Character skin can only contain letters and spaces")
     private String skin;
 
     @Column(name = "hair")
     @Size(max = 64, message = "Character hair cannot be longer than 64 characters")
-    @Pattern(regexp = "^[a-zA-Z\\s]$", message = "Character hair can only contain letters and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z\\s]+)$", message = "Character hair can only contain letters and spaces")
     private String hair;
 
     @Column(name = "portrait")
     @Size(max = 255, message = "Character portrait path cannot be longer than 255 characters")
-    @Pattern(regexp = "^([A-Za-z]:\\\\)?([\\\\w.-]+\\\\)*$", message = "Character portrait path is invalid.")
+    @Pattern(regexp = "^(|([A-Za-z]:\\\\)?([\\\\w.-]+\\\\)*)$", message = "Character portrait path is invalid.")
     private String portrait;
 
     public Appearance() {

@@ -47,12 +47,12 @@ public class Combat {
     private int temporaryHitpoints;
 
     @Column(name = "hit_dice")
-    @Pattern(regexp = "^[A-Za-z0-9\\d.()?+-]$", message = "HitDice can only contain letters and numbers, spaces and ?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s.()?+-]+)$", message = "HitDice can only contain letters and numbers, spaces and ?+-")
     @Size(max = 12, message = "HitDice can be 12 character long max")
     private String hitDice;
 
     @Column(name = "hit_dice_total")
-    @Pattern(regexp = "^[A-Za-z0-9\\d.()?+-]$", message = "HitDiceTotal can only contain letters and numbers, spaces and ?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s.()?+-]+)$", message = "HitDiceTotal can only contain letters and numbers, spaces and ?+-")
     @Size(max = 12, message = "HitDiceTotal can be 12 character long max")
     private String hitDiceTotal;
 

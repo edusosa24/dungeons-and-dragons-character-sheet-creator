@@ -20,7 +20,7 @@ public class SpellKnown {
     private int level;
 
     @Column(name = "name")
-    @Pattern(regexp = "^[A-Za-z0-9\\d]$", message = "Spell name can only contain letters, numbers and spaces")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s]+)$", message = "Spell name can only contain letters, numbers and spaces")
     @Size(max = 255, message = "Spell name can be 255 character long max")
     private String name;
 
@@ -28,6 +28,7 @@ public class SpellKnown {
     private boolean prepared;
 
     public SpellKnown() {
+
     }
 
     public long getId() {

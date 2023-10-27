@@ -13,31 +13,31 @@ public class FeaturesTraitsAndOtherProficiencies {
     private long id;
 
     @Column(name = "personality_traits")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "PersonalityTraits can only contain letters, numbers, spaces and .,!?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.,!?+-]+)$", message = "PersonalityTraits can only contain letters, numbers, spaces and .,!?+-")
     @Size(max = 255, message = "PersonalityTraits cannot be longer than 255 characters")
     private String personalityTraits;
 
     @Column(name = "ideals")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "Ideals can only contain letters, numbers, spaces and .,!?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.,!?+-]+$)", message = "Ideals can only contain letters, numbers, spaces and .,!?+-")
     @Size(max = 255, message = "Ideals cannot be longer than 255 characters")
     private String ideals;
 
     @Column(name = "bonds")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "Bonds can only contain letters, numbers, spaces and .,!?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.,!?+-]+$)", message = "Bonds can only contain letters, numbers, spaces and .,!?+-")
     @Size(max = 255, message = "Bonds cannot be longer than 255 characters")
     private String bonds;
 
     @Column(name = "flaws")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "Flaws can only contain letters, numbers, spaces and .,!?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.,!?+-]+$)", message = "Flaws can only contain letters, numbers, spaces and .,!?+-")
     @Size(max = 255, message = "Flaws cannot be longer than 255 characters")
     private String flaws;
 
     @Column(name = "features_and_traits")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "FeaturesAndTraits can only contain letters, numbers, spaces and .,!?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.,!?+-]+$)", message = "FeaturesAndTraits can only contain letters, numbers, spaces and .,!?+-")
     private String featuresAndTraits;
 
     @Column(name = "other_proficiencies_and_languages")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "OtherProficienciesAndLanguages can only contain letters, numbers, spaces and .,!?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.,!?+-]+$)", message = "OtherProficienciesAndLanguages can only contain letters, numbers, spaces and .,!?+-")
     private String otherProficienciesAndLanguages;
 
     public FeaturesTraitsAndOtherProficiencies() {

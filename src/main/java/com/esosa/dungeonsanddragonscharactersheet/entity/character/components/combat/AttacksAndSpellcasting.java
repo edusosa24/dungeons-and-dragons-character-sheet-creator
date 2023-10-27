@@ -24,7 +24,7 @@ public class AttacksAndSpellcasting {
     private WeaponAux weaponThree;
 
     @Column(name = "extra")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.()?+-]$", message = "AttackAndSpellcasting extra can only contain letters and numbers, spaces and .()?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.()?+-]+)$", message = "AttackAndSpellcasting extra can only contain letters and numbers, spaces and .()?+-")
     private String extra;
 
     public AttacksAndSpellcasting() {

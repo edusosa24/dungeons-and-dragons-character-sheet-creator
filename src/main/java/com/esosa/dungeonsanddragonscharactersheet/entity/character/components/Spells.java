@@ -21,12 +21,12 @@ public class Spells {
     private long id;
 
     @Column(name = "spellcasting_class")
-    @Pattern(regexp = "^[A-Za-z0-9\\d?+-]$", message = "SpellcastingClass can only contain letters and numbers, spaces and ?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s?+-]+)$", message = "SpellcastingClass can only contain letters and numbers, spaces and ?+-")
     @Size(max = 64, message = "SpellcastingClass can be 64 character long max")
     private String spellcastingClass;
 
     @Column(name = "spellcasting_ability")
-    @Pattern(regexp = "^[A-Za-z0-9\\d?+-]$", message = "SpellcastingAbility can only contain letters and numbers, spaces and ?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s?+-]+)$", message = "SpellcastingAbility can only contain letters and numbers, spaces and ?+-")
     @Size(max = 16, message = "SpellcastingAbility can be 16 character long max")
     private String spellcastingAbility;
 
@@ -41,15 +41,15 @@ public class Spells {
     private int spellBonusAttack;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "spells_id")
+    @JoinColumn(name = "spells_id")
     private List<Cantrip> cantrips;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "spells_id")
+    @JoinColumn(name = "spells_id")
     private List<SpellSlots> spellSlots;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "spells_id")
+    @JoinColumn(name = "spells_id")
     private List<SpellKnown> spellsKnown;
 
     public Spells() {

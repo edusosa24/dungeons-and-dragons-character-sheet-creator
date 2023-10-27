@@ -23,6 +23,8 @@ public class DeathSaves {
     private int failure;
 
     public DeathSaves() {
+        this.success = 0;
+        this.failure = 0;
     }
 
     public long getId() {

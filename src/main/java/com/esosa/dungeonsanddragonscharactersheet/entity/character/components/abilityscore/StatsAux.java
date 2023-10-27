@@ -3,7 +3,6 @@ package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.a
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "stats_aux")
@@ -24,6 +23,8 @@ public class StatsAux {
     private int bonus;
 
     public StatsAux() {
+        this.value = 1;
+        this.bonus = 0;
     }
 
     public StatsAux(int value, int bonus) {

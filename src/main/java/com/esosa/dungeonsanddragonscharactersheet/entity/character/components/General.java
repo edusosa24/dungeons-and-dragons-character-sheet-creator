@@ -16,7 +16,7 @@ public class General {
 
     @Column(name = "class")
     @Size(max = 64, message = "Character name can be 64 characters long max")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]$", message = "Character name should only contain letters and numbers and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z0-9\\s]+)$", message = "Character name should only contain letters and numbers and spaces")
     private String characterClass;
 
     @Column(name = "level")
@@ -26,22 +26,22 @@ public class General {
 
     @Column(name = "background")
     @Size(max = 64, message = "Character name can be 64 characters long max")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]$", message = "Character name should only contain letters and numbers and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z0-9\\s]+)$", message = "Character name should only contain letters and numbers and spaces")
     private String background;
 
     @Column(name = "player_name")
     @Size(max = 64, message = "Character name can be 64 characters long max")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]$", message = "Character name should only contain letters and numbers and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z0-9\\s]+)$", message = "Character name should only contain letters and numbers and spaces")
     private String playerName;
 
     @Column(name = "race")
     @Size(max = 64, message = "Character name can be 64 characters long max")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]$", message = "Character name should only contain letters and numbers and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z0-9\\s]+)$", message = "Character name should only contain letters and numbers and spaces")
     private String race;
 
     @Column(name = "alignment")
     @Size(max = 64, message = "Character name can be 64 characters long max")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]$", message = "Character name should only contain letters and numbers and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z0-9\\s]+)$", message = "Character name should only contain letters and numbers and spaces")
     private String alignment;
 
     @Column(name = "experience_points")
@@ -50,6 +50,7 @@ public class General {
     private int experiencePoints;
 
     public General() {
+        this.level = 1;
     }
 
     public long getId() {

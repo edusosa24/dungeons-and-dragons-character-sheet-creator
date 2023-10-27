@@ -3,13 +3,12 @@ package com.esosa.dungeonsanddragonscharactersheet.controller;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import com.esosa.dungeonsanddragonscharactersheet.service.CharacterService;
-
+import com.esosa.dungeonsanddragonscharactersheet.service.UserService;
 import com.esosa.dungeonsanddragonscharactersheet.utils.CharacterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 @RestController
@@ -17,10 +16,13 @@ import java.util.Map;
 public class CharacterRestController {
 
     private CharacterService characterService;
+    private UserService userService;
+
 
     @Autowired
-    public CharacterRestController(CharacterService characterService) {
+    public CharacterRestController(CharacterService characterService, UserService userService) {
         this.characterService = characterService;
+        this.userService = userService;
     }
 
     @GetMapping("/{characterId}")
@@ -34,9 +36,12 @@ public class CharacterRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Map<String, Object>> createCharacter(@RequestBody Map<String, String> characterName){
+    public ResponseEntity<Map<String, Object>> createCharacter(@RequestBody Map<String, String> characterName/*, @AuthenticationPrincipal User user*/){
         try{
-            Character tempCharacter = new Character(characterName.get("name"));
+            User user = userService.getUser(4);
+
+            Character tempCharacter = new Character(characterName.get("name"), user);
+            //Character tempCharacter = CharacterUtils.characterBuild(characterName.get("name"), user);
             characterService.createCharacter(tempCharacter);
             return new ResponseEntity<>(Map.of("message", "Character " + tempCharacter.getName() + " successfully created with id of " + tempCharacter.getId()), HttpStatus.CREATED);
         } catch(Exception e){
@@ -47,7 +52,9 @@ public class CharacterRestController {
     @PutMapping("/{characterId}")
     public ResponseEntity<Map<String, Object>> updateCharacter(@PathVariable long characterId, @RequestBody Map<String, Character> character){
         try {
-            Character tempCharacter = character.get("character");
+            Character updatedCharacter = character.get("character");
+            Character oldCharacter = characterService.getCharacter(characterId);
+            Character tempCharacter = CharacterUtils.characterUpdate(updatedCharacter, oldCharacter);
             characterService.updateCharacter(tempCharacter);
             return new ResponseEntity<>(Map.of("character", tempCharacter), HttpStatus.OK);
         } catch (Exception e) {

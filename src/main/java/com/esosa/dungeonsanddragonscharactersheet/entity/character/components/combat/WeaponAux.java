@@ -13,17 +13,17 @@ public class WeaponAux {
     private long id;
 
     @Column(name = "name")
-    @Pattern(regexp = "^[A-Za-z0-9\\d?]$", message = "Weapon name can only contain letters and numbers, spaces and ?")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s?]+)$", message = "Weapon name can only contain letters and numbers, spaces and ?")
     @Size(max = 32, message = "Weapon name can be 32 character long max")
     private String name;
 
     @Column(name = "attack_bonus")
-    @Pattern(regexp = "^[A-Za-z0-9\\d?+-]$", message = "Weapon attackBonus can only contain letters and numbers, spaces and ?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s?+-]+)$", message = "Weapon attackBonus can only contain letters and numbers, spaces and ?+-")
     @Size(max = 16, message = "Weapon attackBonus can be 16 character long max")
     private String attackBonus;
 
     @Column(name = "damage_and_type")
-    @Pattern(regexp = "^[A-Za-z0-9\\d?+-]$", message = "Weapon damageAndType can only contain letters and numbers, spaces and ?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s?+-]+)$", message = "Weapon damageAndType can only contain letters and numbers, spaces and ?+-")
     @Size(max = 32, message = "Weapon damageAndType can be 32 character long max")
     private String damageAndType;
 

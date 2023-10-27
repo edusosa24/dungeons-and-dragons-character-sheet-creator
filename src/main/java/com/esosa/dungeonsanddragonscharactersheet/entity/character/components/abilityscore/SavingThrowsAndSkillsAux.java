@@ -21,6 +21,8 @@ public class SavingThrowsAndSkillsAux {
     private int bonus;
 
     public SavingThrowsAndSkillsAux() {
+        this.proficiency = false;
+        this.bonus = 0;
     }
 
     public SavingThrowsAndSkillsAux(boolean proficiency, int bonus) {

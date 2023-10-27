@@ -6,7 +6,6 @@ import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.ab
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "ability_score")

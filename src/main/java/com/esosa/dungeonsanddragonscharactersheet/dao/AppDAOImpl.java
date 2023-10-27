@@ -25,7 +25,7 @@ public class AppDAOImpl implements AppDAO{
 
     @Override
     public void createUser(User newUser) {
-        entityManager.persist(newUser);
+        entityManager.merge(newUser);
 
     }
 
@@ -48,8 +48,7 @@ public class AppDAOImpl implements AppDAO{
 
     @Override
     public void createCharacter(Character newCharacter) {
-        entityManager.persist(newCharacter);
-        System.out.println("Character -> " + newCharacter + " -> successfully created.");
+        entityManager.merge(newCharacter);
     }
 
     @Override
@@ -60,8 +59,7 @@ public class AppDAOImpl implements AppDAO{
 
     @Override
     public void updateCharacter(Character updatedCharacter) {
-        entityManager.persist(updatedCharacter);
-        System.out.println("Character -> " + updatedCharacter + " -> successfully updated.");
+        entityManager.merge(updatedCharacter);
     }
 
     @Override
@@ -76,7 +74,6 @@ public class AppDAOImpl implements AppDAO{
     public void deleteCharacter(long characterId) {
         Character theCharacter = entityManager.find(Character.class, characterId);
         entityManager.remove(theCharacter);
-        System.out.println("Character -> " + theCharacter + " -> successfully deleted.");
     }
 
 }

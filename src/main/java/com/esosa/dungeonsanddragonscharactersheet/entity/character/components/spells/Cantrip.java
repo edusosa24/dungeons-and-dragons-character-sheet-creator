@@ -13,7 +13,7 @@ public class Cantrip {
     private long id;
 
     @Column(name = "name")
-    @Pattern(regexp = "^[A-Za-z0-9\\d]$", message = "Cantrip can only contain letters, numbers and spaces")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s]+)$", message = "Cantrip can only contain letters, numbers and spaces")
     @Size(max = 255, message = "Cantrip name can be 255 character long max")
     private String name;
 

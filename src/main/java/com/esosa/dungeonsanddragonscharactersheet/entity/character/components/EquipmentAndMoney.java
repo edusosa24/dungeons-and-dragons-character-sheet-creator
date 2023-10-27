@@ -39,7 +39,7 @@ public class EquipmentAndMoney {
     private int platinum;
 
     @Column(name = "equipment")
-    @Pattern(regexp = "^[A-Za-z0-9\\d\\n.,!?+-]$", message = "Equipment can only contain letters, numbers, spaces and .,!?+-")
+    @Pattern(regexp = "^(|[A-Za-z0-9\\s\\n.,!?+-]+)$", message = "Equipment can only contain letters, numbers, spaces and .,!?+-")
     private String equipment;
 
     public EquipmentAndMoney() {

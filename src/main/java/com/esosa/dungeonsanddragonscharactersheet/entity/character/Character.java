@@ -2,6 +2,7 @@ package com.esosa.dungeonsanddragonscharactersheet.entity.character;
 
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.*;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -10,7 +11,7 @@ import jakarta.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "character")
+@Table(name = "[character]")
 public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,53 +21,54 @@ public class Character {
     @Column(name = "name")
     @NotNull
     @Size(max = 64, message = "Character name can be 64 characters long max")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]$", message = "Character name should only contain letters and numbers and spaces")
+    @Pattern(regexp = "^(|[a-zA-Z0-9\\s]+)$", message = "Character name should only contain letters and numbers and spaces")
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "last_modified")
     private Timestamp lastModified;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = AbilityScore.class)
+    @JoinColumn(name = "ability_score_id")
     private AbilityScore abilityScore;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @JoinColumn(name = "combat_id")
     private Combat combat;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @JoinColumn(name = "spells_id")
     private Spells spells;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @JoinColumn(name = "general_id")
     private General general;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @JoinColumn(name = "equipment_and_money_id")
     private EquipmentAndMoney equipmentAndMoney;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @JoinColumn(name = "appearance_id")
     private Appearance appearance;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @JoinColumn(name = "backstory_id")
     private Backstory backstory;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "character_id")
+    @JoinColumn(name = "features_traits_and_other_proficiencies_id")
     private FeaturesTraitsAndOtherProficiencies featuresTraitsAndOtherProficiencies;
 
     public Character() {
     }
 
-    public Character(String name) {
+    public Character(String name, User user) {
         this.name = name;
+        this.user = user;
         this.lastModified = new Timestamp(System.currentTimeMillis());
         this.abilityScore = new AbilityScore();
         this.combat = new Combat();
@@ -182,6 +184,7 @@ public class Character {
     public String toString() {
         return "Character{" +
                 "id=" + id +
+                ", userId=" + user.getId() + '\'' +
                 ", name='" + name + '\'' +
                 ", lastModified=" + lastModified +
                 ", abilityScore=" + abilityScore +
