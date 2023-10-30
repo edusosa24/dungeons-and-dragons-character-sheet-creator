@@ -57,11 +57,11 @@ public class Combat {
     private String hitDiceTotal;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "combat_id")
+    @JoinColumn(name = "death_saves_id")
     private DeathSaves deathSaves;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "combat_id")
+    @JoinColumn(name = "attacks_and_spellcasting_id")
     private AttacksAndSpellcasting attacksAndSpellcasting;
 
     public Combat() {

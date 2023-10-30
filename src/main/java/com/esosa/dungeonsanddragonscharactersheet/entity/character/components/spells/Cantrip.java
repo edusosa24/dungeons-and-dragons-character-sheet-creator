@@ -1,5 +1,6 @@
 package com.esosa.dungeonsanddragonscharactersheet.entity.character.components.spells;
 
+import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.Spells;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

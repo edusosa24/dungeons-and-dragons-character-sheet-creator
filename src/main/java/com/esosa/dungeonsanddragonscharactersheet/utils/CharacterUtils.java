@@ -1,5 +1,6 @@
 package com.esosa.dungeonsanddragonscharactersheet.utils;
 
+import com.esosa.dungeonsanddragonscharactersheet.dto.ShortCharacterDTO;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.*;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
@@ -20,7 +21,13 @@ public class CharacterUtils {
         Map<String, Object> characterMap = new HashMap<>();
         int count = 0;
         for(Character character : characters){
-            characterMap.put("Character " + count, character);
+            ShortCharacterDTO tempShortCharacter = new ShortCharacterDTO(character.getId(),
+                                                                         character.getName(),
+                                                                         character.getGeneral().getCharacterClass(),
+                                                                         character.getGeneral().getRace(),
+                                                                         character.getGeneral().getLevel()
+            );
+            characterMap.put(String.valueOf(count), tempShortCharacter);
             count++;
         }
         return characterMap;
@@ -43,32 +50,37 @@ public class CharacterUtils {
     */
 
     public static Character characterUpdate(Character updatedCharacter, Character oldCharacter){
-        /*
-        updatedCharacter.setUser(oldCharacter.getUser());
-        updatedCharacter.setLastModified(new Timestamp(System.currentTimeMillis()));
-        */
+        long tempId;
+        if(updatedCharacter.getName() != null){
+            oldCharacter.setName(updatedCharacter.getName());
+        }
         if(updatedCharacter.getAbilityScore() != null){
+         /*   tempId = oldCharacter.getAbilityScore().getId();
+            oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
+            oldCharacter.getAbilityScore().setId(tempId);
+          */
+        }
+        if(updatedCharacter.getAppearance() != null){
             oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
         }
-        if(updatedCharacter.getGeneral() != null){
-            oldCharacter.setGeneral(updatedCharacter.getGeneral());
-        }
-        if(updatedCharacter.getFeaturesTraitsAndOtherProficiencies() != null){
-            oldCharacter.setFeaturesTraitsAndOtherProficiencies(updatedCharacter.getFeaturesTraitsAndOtherProficiencies());
-        }
-        if(updatedCharacter.getEquipmentAndMoney() != null){
-            oldCharacter.setEquipmentAndMoney(updatedCharacter.getEquipmentAndMoney());
+        if(updatedCharacter.getBackstory() != null){
+            oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
         }
         if(updatedCharacter.getCombat() != null){
             oldCharacter.setCombat(updatedCharacter.getCombat());
         }
-        if(updatedCharacter.getAbilityScore() != null){
+        if(updatedCharacter.getEquipmentAndMoney() != null){
+            oldCharacter.setEquipmentAndMoney(updatedCharacter.getEquipmentAndMoney());
+        }
+        if(updatedCharacter.getFeaturesTraitsAndOtherProficiencies() != null){
+            oldCharacter.setFeaturesTraitsAndOtherProficiencies(updatedCharacter.getFeaturesTraitsAndOtherProficiencies());
+        }
+        if(updatedCharacter.getGeneral() != null){
+            oldCharacter.setGeneral(updatedCharacter.getGeneral());
+        }
+        if(updatedCharacter.getSpells() != null){
             oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
         }
-        if(updatedCharacter.getAbilityScore() != null){
-            oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
-        }
-
         return oldCharacter;
     }
 }

@@ -7,8 +7,8 @@ import java.util.Map;
 
 public interface CharacterService {
     void createCharacter(Character newCharacter);
-    Character getCharacter(long characterId);
-    void updateCharacter(Character character);
-    Map<String, Object> getCharactersFromUser(long userId);
-    void deleteCharacter(long characterId);
+    Character getCharacter(Long characterId);
+    void updateCharacter(Long characterId, Character character);
+    Map<String, Object> getCharactersFromUser(Long userId);
+    void deleteCharacter(Long characterId);
 }

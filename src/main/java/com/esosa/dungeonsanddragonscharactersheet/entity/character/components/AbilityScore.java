@@ -31,15 +31,15 @@ public class AbilityScore {
     private int passiveWisdom;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "ability_score_id")
+    @JoinColumn(name = "stats_id")
     private Stats stats;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "ability_score_id")
+    @JoinColumn(name = "skills_id")
     private Skills skills;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "ability_score_id")
+    @JoinColumn(name = "saving_throws_id")
     private SavingThrows savingThrows;
 
     public AbilityScore() {

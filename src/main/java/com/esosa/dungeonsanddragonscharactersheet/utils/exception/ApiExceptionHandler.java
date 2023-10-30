@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = {CharacterIdNotMatchException.class})
-    public ResponseEntity<Object> handleCharacterIdNotMatchException(CharacterIdNotMatchException e){
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+    @ExceptionHandler(value = {CharacterNotFoundException.class})
+    public ResponseEntity<Object> handleCharacterNotFoundException(CharacterNotFoundException e){
+        HttpStatus badRequest = HttpStatus.NOT_FOUND;
         ApiException apiException = new ApiException(
                 e.getMessage(),
                 badRequest,
@@ -29,9 +29,9 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(apiException, badRequest);
     }
 
-    @ExceptionHandler(value = {CharacterNotFoundException.class})
-    public ResponseEntity<Object> handleCharacterNotFoundException(CharacterNotFoundException e){
-        HttpStatus badRequest = HttpStatus.NOT_FOUND;
+    @ExceptionHandler(value = {CharacterInvalidDataException.class})
+    public ResponseEntity<Object> handleCharacterInvalidDataException(CharacterInvalidDataException e){
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ApiException apiException = new ApiException(
                 e.getMessage(),
                 badRequest,
@@ -72,30 +72,6 @@ public class ApiExceptionHandler {
         );
         return new ResponseEntity<>(apiException, badRequest);
     }
-
-    /*
-    @ExceptionHandler(value = {UserInvalidDataException.class})
-    public ResponseEntity<Object> handleUserInvalidDataException(UserInvalidDataException e){
-        HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
-        ApiException apiException = new ApiException(
-                e.getMessage(),
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z"))
-        );
-        return new ResponseEntity<>(apiException, badRequest);
-    }
-
-        @ExceptionHandler(value = {CharacterInvalidDataException.class})
-    public ResponseEntity<Object> handleCharacterInvalidDataException(CharacterInvalidDataException e){
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        ApiException apiException = new ApiException(
-                e.getMessage(),
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z"))
-        );
-        return new ResponseEntity<>(apiException, badRequest);
-    }
-    */
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, List<String>>> handleValidationErrors(MethodArgumentNotValidException e) {

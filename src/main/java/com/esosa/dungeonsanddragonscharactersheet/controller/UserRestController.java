@@ -1,8 +1,9 @@
 package com.esosa.dungeonsanddragonscharactersheet.controller;
 
-import com.esosa.dungeonsanddragonscharactersheet.dao.AppDAO;
+import com.esosa.dungeonsanddragonscharactersheet.dto.UserDTO;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import com.esosa.dungeonsanddragonscharactersheet.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,18 +23,19 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/")
-    public ResponseEntity<Map<String, Object>> createUser(@RequestBody Map<String, String> userData){
+    public ResponseEntity<Map<String, Object>> createUser(@RequestBody @Valid UserDTO user){
         try {
-            User tempUser = new User(userData.get("username"), userData.get("password"));
-            userService.createUser(tempUser);
-            return new ResponseEntity<>(Map.of("message", "User " + tempUser.getUsername() + " successfully created."), HttpStatus.CREATED);
+            // Assign data to Entity User
+            // Encrypt password
+            userService.createUser(user);
+            return new ResponseEntity<>(Map.of("message", "User " + user.getUsername() + " successfully created."), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(Map.of("exception", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Map<String, Object>> getUser(@PathVariable long userId){
+    public ResponseEntity<Map<String, Object>> getUser(@PathVariable Long userId){
         try {
             User tempUser = userService.getUser(userId);
             if(tempUser == null) {
@@ -46,7 +48,7 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Map<String, Object>> deleteUser(@PathVariable long userId) {
+    public ResponseEntity<Map<String, Object>> deleteUser(@PathVariable Long userId) {
         try {
             User tempUser = userService.getUser(userId);
             if(tempUser == null) {

@@ -26,12 +26,13 @@ public class Character {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @Column(name = "last_modified")
     private Timestamp lastModified;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = AbilityScore.class)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ability_score_id")
     private AbilityScore abilityScore;
 
