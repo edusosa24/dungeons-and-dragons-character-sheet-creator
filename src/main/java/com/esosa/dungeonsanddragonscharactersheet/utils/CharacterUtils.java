@@ -1,13 +1,11 @@
 package com.esosa.dungeonsanddragonscharactersheet.utils;
 
+import com.esosa.dungeonsanddragonscharactersheet.dto.CharacterDTO;
 import com.esosa.dungeonsanddragonscharactersheet.dto.ShortCharacterDTO;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
-import com.esosa.dungeonsanddragonscharactersheet.entity.character.components.*;
-import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
-import com.esosa.dungeonsanddragonscharactersheet.service.CharacterService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,54 +31,18 @@ public class CharacterUtils {
         return characterMap;
     }
 
-    /*
-    public static Character characterBuild(String name, User user){
-        Character tempCharacter = new Character(name, user);
-        tempCharacter.setAbilityScore(new AbilityScore());
-        tempCharacter.setGeneral(new General());
-        tempCharacter.setCombat(new Combat());
-        tempCharacter.setAppearance(new Appearance());
-        tempCharacter.setEquipmentAndMoney(new EquipmentAndMoney());
-        tempCharacter.setFeaturesTraitsAndOtherProficiencies(new FeaturesTraitsAndOtherProficiencies());
-        tempCharacter.setSpells(new Spells());
-        tempCharacter.setBackstory(new Backstory());
-
-        return tempCharacter;
+    public static void characterUpdate(CharacterDTO characterUpdates, Character character) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(characterUpdates, character);
     }
-    */
 
-    public static Character characterUpdate(Character updatedCharacter, Character oldCharacter){
-        long tempId;
-        if(updatedCharacter.getName() != null){
-            oldCharacter.setName(updatedCharacter.getName());
-        }
-        if(updatedCharacter.getAbilityScore() != null){
-         /*   tempId = oldCharacter.getAbilityScore().getId();
-            oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
-            oldCharacter.getAbilityScore().setId(tempId);
-          */
-        }
-        if(updatedCharacter.getAppearance() != null){
-            oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
-        }
-        if(updatedCharacter.getBackstory() != null){
-            oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
-        }
-        if(updatedCharacter.getCombat() != null){
-            oldCharacter.setCombat(updatedCharacter.getCombat());
-        }
-        if(updatedCharacter.getEquipmentAndMoney() != null){
-            oldCharacter.setEquipmentAndMoney(updatedCharacter.getEquipmentAndMoney());
-        }
-        if(updatedCharacter.getFeaturesTraitsAndOtherProficiencies() != null){
-            oldCharacter.setFeaturesTraitsAndOtherProficiencies(updatedCharacter.getFeaturesTraitsAndOtherProficiencies());
-        }
-        if(updatedCharacter.getGeneral() != null){
-            oldCharacter.setGeneral(updatedCharacter.getGeneral());
-        }
-        if(updatedCharacter.getSpells() != null){
-            oldCharacter.setAbilityScore(updatedCharacter.getAbilityScore());
-        }
-        return oldCharacter;
+    public static CharacterDTO responseCharacter(Character character) {
+        CharacterDTO responseCharacter = new CharacterDTO();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(character, responseCharacter);
+
+        return responseCharacter;
     }
 }
