@@ -2,16 +2,19 @@ package com.esosa.dungeonsanddragonscharactersheet.dto;
 
 public class ShortCharacterDTO {
     private long id;
-    private String characterName;
+    private String name;
     private String characterClass;
-    private String characterRace;
+    private String race;
     private int level;
 
-    public ShortCharacterDTO(long id, String characterName, String characterClass, String characterRace, int level) {
+    public ShortCharacterDTO() {
+    }
+
+    public ShortCharacterDTO(long id, String name, String characterClass, String race, int level) {
         this.id = id;
-        this.characterName = characterName;
+        this.name = name;
         this.characterClass = characterClass;
-        this.characterRace = characterRace;
+        this.race = race;
         this.level = level;
     }
 
@@ -23,12 +26,12 @@ public class ShortCharacterDTO {
         this.id = id;
     }
 
-    public String getCharacterName() {
-        return characterName;
+    public String getName() {
+        return name;
     }
 
-    public void setCharacterName(String characterName) {
-        this.characterName = characterName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCharacterClass() {
@@ -39,12 +42,12 @@ public class ShortCharacterDTO {
         this.characterClass = characterClass;
     }
 
-    public String getCharacterRace() {
-        return characterRace;
+    public String getRace() {
+        return race;
     }
 
-    public void setCharacterRace(String characterRace) {
-        this.characterRace = characterRace;
+    public void setRace(String race) {
+        this.race = race;
     }
 
     public int getLevel() {
@@ -59,9 +62,9 @@ public class ShortCharacterDTO {
     public String toString() {
         return "ShortCharacterDTO{" +
                 "id=" + id +
-                ", characterName='" + characterName + '\'' +
+                ", name='" + name + '\'' +
                 ", characterClass='" + characterClass + '\'' +
-                ", characterRace='" + characterRace + '\'' +
+                ", race='" + race + '\'' +
                 ", level=" + level +
                 '}';
     }

@@ -1,11 +1,10 @@
 package com.esosa.dungeonsanddragonscharactersheet.controller;
 
 import com.esosa.dungeonsanddragonscharactersheet.dto.CharacterDTO;
-import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
-import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
+import com.esosa.dungeonsanddragonscharactersheet.dto.ShortCharacterDTO;
 import com.esosa.dungeonsanddragonscharactersheet.service.CharacterService;
 import com.esosa.dungeonsanddragonscharactersheet.service.UserService;
-import com.esosa.dungeonsanddragonscharactersheet.utils.exception.types.CharacterInvalidDataException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,61 +26,43 @@ public class CharacterRestController {
     }
 
     @GetMapping("/{characterId}")
-    public ResponseEntity<Map<String, Object>> getCharacter(@PathVariable Long characterId){
-        try {
-            CharacterDTO tempCharacter = characterService.getCharacter(characterId);
-            return new ResponseEntity<>(Map.of("character", tempCharacter), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(Map.of("exception", e.getMessage()), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<CharacterDTO> getCharacter(@PathVariable @Valid Long characterId){
+        CharacterDTO tempCharacter = characterService.getCharacter(characterId);
+        return new ResponseEntity<>(tempCharacter, HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Map<String, Object>> createCharacter(@RequestBody Map<String, String> characterName/*, @AuthenticationPrincipal User user*/){
-        try{
-            if(characterName.get("name") != null){
-                Long newCharacterId = characterService.createCharacter(characterName.get("name"));
-                return new ResponseEntity<>(Map.of("message", "Character '" + characterName.get("name") + "' successfully created with id of " + newCharacterId), HttpStatus.CREATED);
-            } else {
-                throw new CharacterInvalidDataException("Field 'name' not found.");
-            }
-        } catch(Exception e){
-            return new ResponseEntity<>(Map.of("exception", e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Map<String, String>> createCharacter(@RequestBody @Valid CharacterDTO character/*, @AuthenticationPrincipal User user*/){
+            Long newCharacterId = characterService.createCharacter(character);
+            return new ResponseEntity<>(
+                Map.of("message", String.format("Character %s successfully created with id of %l",
+                            character.getName(),
+                            newCharacterId)),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/{characterId}")
-    public ResponseEntity<Map<String, Object>> updateCharacter(@PathVariable Long characterId, @RequestBody CharacterDTO character){
-        try {
-            System.out.println(character);
-            characterService.updateCharacter(characterId, character);
-            return new ResponseEntity<>(Map.of("character", character), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(Map.of("exception", e.getMessage()), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<CharacterDTO> updateCharacter(@PathVariable @Valid Long characterId,
+                                                        @RequestBody @Valid CharacterDTO character){
+        characterService.updateCharacter(characterId, character);
+        return new ResponseEntity<>(character, HttpStatus.OK);
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<Map<String, Object>> getCharactersFromUser(@PathVariable Long userId){
-        try {
-            Map<String, Object> characters = characterService.getCharactersFromUser(userId);
-            if(characters.size() == 0){
-                return new ResponseEntity<>(characters, HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(characters, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(Map.of("exception", e.getMessage()), HttpStatus.NOT_FOUND);
+    public ResponseEntity<Map<String, ShortCharacterDTO>> getCharactersFromUser(@PathVariable Long userId){
+        Map<String, ShortCharacterDTO> characters = characterService.getCharactersFromUser(userId);
+        if(characters.size() == 0){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
+        return new ResponseEntity<>(characters, HttpStatus.OK);
     }
 
     @DeleteMapping("/{characterId}")
-    public ResponseEntity<Map<String, Object>> deleteCharacter(@PathVariable Long characterId) {
-        try {
-            CharacterDTO tempCharacter = characterService.getCharacter(characterId);
-            characterService.deleteCharacter(characterId);
-            return new ResponseEntity<>(Map.of("message", "Character " + tempCharacter.getName() + " successfully deleted."), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(Map.of("exception", e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Map<String, String>> deleteCharacter(@PathVariable @Valid Long characterId) {
+        characterService.deleteCharacter(characterId);
+        return new ResponseEntity<>(
+                Map.of("message", String.format("Character with id %l successfully deleted",
+                        characterId)),
+                HttpStatus.OK);
     }
 }
