@@ -16,13 +16,10 @@ import java.util.Map;
 public class CharacterRestController {
 
     private CharacterService characterService;
-    private UserService userService;
-
 
     @Autowired
-    public CharacterRestController(CharacterService characterService, UserService userService) {
+    public CharacterRestController(CharacterService characterService) {
         this.characterService = characterService;
-        this.userService = userService;
     }
 
     @GetMapping("/{characterId}")
@@ -35,7 +32,7 @@ public class CharacterRestController {
     public ResponseEntity<Map<String, String>> createCharacter(@RequestBody @Valid CharacterDTO character/*, @AuthenticationPrincipal User user*/){
             Long newCharacterId = characterService.createCharacter(character);
             return new ResponseEntity<>(
-                Map.of("message", String.format("Character %s successfully created with id of %l",
+                Map.of("message", String.format("Character %s successfully created with id of %d",
                             character.getName(),
                             newCharacterId)),
                 HttpStatus.CREATED);
@@ -51,7 +48,7 @@ public class CharacterRestController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<Map<String, ShortCharacterDTO>> getCharactersFromUser(@PathVariable Long userId){
         Map<String, ShortCharacterDTO> characters = characterService.getCharactersFromUser(userId);
-        if(characters.size() == 0){
+        if(characters.isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(characters, HttpStatus.OK);
@@ -61,7 +58,7 @@ public class CharacterRestController {
     public ResponseEntity<Map<String, String>> deleteCharacter(@PathVariable @Valid Long characterId) {
         characterService.deleteCharacter(characterId);
         return new ResponseEntity<>(
-                Map.of("message", String.format("Character with id %l successfully deleted",
+                Map.of("message", String.format("Character with id %d successfully deleted",
                         characterId)),
                 HttpStatus.OK);
     }

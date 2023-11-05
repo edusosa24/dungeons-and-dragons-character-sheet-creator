@@ -5,6 +5,5 @@ import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 
 public interface UserService {
     void createUser(UserDTO newUser);
-    User getUser(Long userId);
-    void deleteUser(Long userId);
+    void deleteUser(String username);
 }

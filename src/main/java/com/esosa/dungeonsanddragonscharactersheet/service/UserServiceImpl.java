@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void createUser(UserDTO newUser) {
-        User validateUser = userRepository.findByUsername(newUser.getUsername());
+        User validateUser = userRepository.findByUsername(newUser.getUsername()).orElse(null);
         UserValidator.validateUser(validateUser, newUser);
         User tempUser = UserUtils.newUser(newUser);
         // Encrypt password on UTILS
@@ -30,17 +30,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUser(Long userId) {
-        User tempUser = userRepository.findById(userId).orElse(null);
-        UserValidator.validateUser(tempUser, userId);
-        return tempUser;
-    }
-
-    @Override
     @Transactional
-    public void deleteUser(Long userId) {
-        User tempUser = userRepository.findById(userId).orElse(null);
-        UserValidator.validateUser(tempUser, userId);
-        userRepository.deleteById(userId);
+    public void deleteUser(String username) {
+        User tempUser = userRepository.findByUsername(username).orElse(null);
+        UserValidator.validateUser(tempUser, username);
+        userRepository.deleteByUsername(username);
     }
 }

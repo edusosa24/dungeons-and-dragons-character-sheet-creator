@@ -5,6 +5,7 @@ import com.esosa.dungeonsanddragonscharactersheet.dto.ShortCharacterDTO;
 import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import com.esosa.dungeonsanddragonscharactersheet.repository.CharacterRepository;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
+import com.esosa.dungeonsanddragonscharactersheet.repository.UserRepository;
 import com.esosa.dungeonsanddragonscharactersheet.utils.CharacterUtils;
 import com.esosa.dungeonsanddragonscharactersheet.utils.validator.CharacterValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +19,20 @@ import java.util.Map;
 @Service
 public class CharacterServiceImpl implements CharacterService{
     private final CharacterRepository characterRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
 
     @Autowired
-    public CharacterServiceImpl(CharacterRepository characterRepository, UserService userService) {
+    public CharacterServiceImpl(CharacterRepository characterRepository, UserRepository userRepository) {
         this.characterRepository = characterRepository;
-        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @Override
     @Transactional
     public Long createCharacter(CharacterDTO characterDTO) {
         CharacterValidator.validateCharacter(characterDTO);
-        User user = userService.getUser(Long.valueOf(1));
+        User user = userRepository.findById(1L).orElse(new User("Prueba", "Necesariamente"));
         Character character = new Character(characterDTO.getName(), user);
         CharacterUtils.characterUpdate(characterDTO, character);
         characterRepository.save(character);
@@ -42,8 +43,7 @@ public class CharacterServiceImpl implements CharacterService{
     public CharacterDTO getCharacter(Long characterId) {
         Character tempCharacter = characterRepository.findById(characterId).orElse(null);
         CharacterValidator.validateCharacter(tempCharacter, characterId);
-        CharacterDTO responseCharacter = CharacterUtils.responseCharacter(tempCharacter);
-        return responseCharacter;
+        return CharacterUtils.responseCharacter(tempCharacter);
     }
 
     @Override
@@ -58,8 +58,7 @@ public class CharacterServiceImpl implements CharacterService{
     @Override
     public Map<String, ShortCharacterDTO> getCharactersFromUser(Long userId) {
         List<Character> charactersList = characterRepository.getCharactersFromUser(userId);
-        Map<String, ShortCharacterDTO> mappedCharacters = CharacterUtils.charactersMap(charactersList);
-        return mappedCharacters;
+        return CharacterUtils.charactersMap(charactersList);
     }
 
     @Override

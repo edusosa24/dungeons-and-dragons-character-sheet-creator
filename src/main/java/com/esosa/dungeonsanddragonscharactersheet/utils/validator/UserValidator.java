@@ -16,9 +16,9 @@ public class UserValidator {
         }
     }
 
-    public static void validateUser(User user, Long id){
+    public static void validateUser(User user, String username){
         if(user == null){
-            throw new UserNotFoundException(String.format("User with id %l not found", id));
+            throw new UserNotFoundException(String.format("User %s not found", username));
         }
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/v1/users")
 public class UserRestController {
 
     private UserService userService;
@@ -29,19 +29,12 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable @Valid Long userId) {
-        User tempUser = userService.getUser(userId);
-        UserDTO responseUser = UserUtils.userResponse(tempUser);
-        return new ResponseEntity<>(responseUser, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable @Valid Long userId) {
-            userService.deleteUser(userId);
-            return new ResponseEntity<>(
-                    Map.of("message", String.format("User with id %l successfully deleted", userId)),
-                    HttpStatus.OK
-            );
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable @Valid String username) {
+        userService.deleteUser(username);
+        return new ResponseEntity<>(
+                Map.of("message", String.format("User %s successfully deleted", username)),
+                HttpStatus.OK
+        );
     }
 }
