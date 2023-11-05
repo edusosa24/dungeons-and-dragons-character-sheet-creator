@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping(value = "/api/character")
 public class CharacterRestController {
 
-    private CharacterService characterService;
+    private final CharacterService characterService;
 
     @Autowired
     public CharacterRestController(CharacterService characterService) {
