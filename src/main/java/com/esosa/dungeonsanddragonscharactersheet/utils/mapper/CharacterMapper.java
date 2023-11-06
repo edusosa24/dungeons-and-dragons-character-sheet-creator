@@ -7,17 +7,16 @@ import org.modelmapper.ModelMapper;
 
 public class CharacterMapper {
 
-    private static ModelMapper modelMapper = new ModelMapper();
-    {
-        modelMapper.getConfiguration().setSkipNullEnabled(true);
-    }
+    private final static ModelMapper modelMapper = new ModelMapper();
 
 
     public static void characterToCharacterDTO(Character character, CharacterDTO characterDTO){
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
         modelMapper.map(character, characterDTO);
     }
 
     public static void characterDTOToCharacter(CharacterDTO characterDTO, Character character){
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
         modelMapper.map(characterDTO, character);
     }
 

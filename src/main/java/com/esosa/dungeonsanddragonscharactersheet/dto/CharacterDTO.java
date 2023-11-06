@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Size;
 
 public class CharacterDTO {
     Long id;
-    @NotNull
     @Size(message = "Character name can be 64 characters long max", max = 64)
     @Pattern(message = "Character name should only contain letters and numbers and spaces", regexp = "^(|[a-zA-Z0-9\\s]+)$")
     String name;

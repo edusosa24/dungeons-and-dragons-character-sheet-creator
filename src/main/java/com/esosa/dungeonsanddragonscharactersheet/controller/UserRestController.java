@@ -26,7 +26,7 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    //@PreAuthorize("permitAll()")
+
     @PostMapping
     public ResponseEntity<Map<String, String>> createUser(@RequestBody @Valid UserDTO user){
         System.out.println(user);

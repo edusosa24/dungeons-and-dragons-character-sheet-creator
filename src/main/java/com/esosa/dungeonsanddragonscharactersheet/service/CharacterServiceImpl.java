@@ -6,8 +6,10 @@ import com.esosa.dungeonsanddragonscharactersheet.entity.user.User;
 import com.esosa.dungeonsanddragonscharactersheet.repository.CharacterRepository;
 import com.esosa.dungeonsanddragonscharactersheet.entity.character.Character;
 import com.esosa.dungeonsanddragonscharactersheet.repository.UserRepository;
+import com.esosa.dungeonsanddragonscharactersheet.security.model.SecurityUser;
 import com.esosa.dungeonsanddragonscharactersheet.utils.CharacterUtils;
 import com.esosa.dungeonsanddragonscharactersheet.utils.validator.CharacterValidator;
+import com.esosa.dungeonsanddragonscharactersheet.utils.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,21 +22,29 @@ import java.util.Map;
 public class CharacterServiceImpl implements CharacterService{
     private final CharacterRepository characterRepository;
     private final UserRepository userRepository;
-
+    private final CharacterUtils characterUtils;
+    private final CharacterValidator characterValidator;
 
     @Autowired
-    public CharacterServiceImpl(CharacterRepository characterRepository, UserRepository userRepository) {
+    public CharacterServiceImpl(
+            CharacterRepository characterRepository,
+            UserRepository userRepository,
+            CharacterUtils characterUtils,
+            CharacterValidator characterValidator
+        ) {
         this.characterRepository = characterRepository;
         this.userRepository = userRepository;
+        this.characterUtils = characterUtils;
+        this.characterValidator = characterValidator;
     }
 
     @Override
     @Transactional
-    public Long createCharacter(CharacterDTO characterDTO) {
-        CharacterValidator.validateCharacter(characterDTO);
-        User user = userRepository.findById(1L).orElse(new User("Prueba", "Necesariamente"));
-        Character character = new Character(characterDTO.getName(), user);
-        CharacterUtils.characterUpdate(characterDTO, character);
+    public Long createCharacter(CharacterDTO characterDTO, SecurityUser user) {
+        characterValidator.validateCharacterCreation(characterDTO);
+        User characterUser = userRepository.findByUsername(user.getUsername()).orElse(null);
+        Character character = new Character(characterDTO.getName(), characterUser);
+        characterUtils.characterUpdate(characterDTO, character);
         characterRepository.save(character);
         return character.getId();
     }
@@ -42,30 +52,30 @@ public class CharacterServiceImpl implements CharacterService{
     @Override
     public CharacterDTO getCharacter(Long characterId) {
         Character tempCharacter = characterRepository.findById(characterId).orElse(null);
-        CharacterValidator.validateCharacter(tempCharacter, characterId);
-        return CharacterUtils.responseCharacter(tempCharacter);
+        characterValidator.validateCharacterExists(tempCharacter, characterId);
+        return characterUtils.responseCharacter(tempCharacter);
     }
 
     @Override
     @Transactional
-    public void updateCharacter(Long characterId, CharacterDTO characterUpdates) {
+    public void updateCharacter(Long characterId, CharacterDTO characterUpdates, SecurityUser user) {
         Character tempCharacter = characterRepository.findById(characterId).orElse(null);
-        CharacterValidator.validateCharacter(tempCharacter, characterId);
-        CharacterUtils.characterUpdate(characterUpdates, tempCharacter);
+        characterValidator.validateCharacterUpdate(tempCharacter, characterId, user);
+        characterUtils.characterUpdate(characterUpdates, tempCharacter);
         characterRepository.save(tempCharacter);
     }
 
     @Override
-    public Map<String, ShortCharacterDTO> getCharactersFromUser(Long userId) {
-        List<Character> charactersList = characterRepository.getCharactersFromUser(userId);
-        return CharacterUtils.charactersMap(charactersList);
+    public Map<String, ShortCharacterDTO> getCharactersFromUser(String username) {
+        List<Character> charactersList = characterRepository.getCharactersFromUser(username);
+        return characterUtils.charactersMap(charactersList);
     }
 
     @Override
     @Transactional
-    public void deleteCharacter(Long characterId) {
+    public void deleteCharacter(Long characterId, SecurityUser user) {
         Character tempCharacter = characterRepository.findById(characterId).orElse(null);
-        CharacterValidator.validateCharacter(tempCharacter, characterId);
+        characterValidator.validateCharacterDelete(tempCharacter, characterId, user);
         tempCharacter.setUser(null);
         characterRepository.deleteById(characterId);
     }

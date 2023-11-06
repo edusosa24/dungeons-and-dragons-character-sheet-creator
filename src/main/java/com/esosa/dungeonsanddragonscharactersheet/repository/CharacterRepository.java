@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CharacterRepository extends JpaRepository<Character, Long> {
-    @Query(value = "FROM Character WHERE user.id = :userId")
-    List<Character> getCharactersFromUser(Long userId);
+    @Query(value = "FROM Character WHERE user.username = :username")
+    List<Character> getCharactersFromUser(String username);
 }

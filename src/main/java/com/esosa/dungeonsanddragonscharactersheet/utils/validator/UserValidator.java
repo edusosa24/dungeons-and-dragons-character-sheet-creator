@@ -7,9 +7,15 @@ import com.esosa.dungeonsanddragonscharactersheet.utils.exception.types.UserAcce
 import com.esosa.dungeonsanddragonscharactersheet.utils.exception.types.UserAlreadyExistsException;
 import com.esosa.dungeonsanddragonscharactersheet.utils.exception.types.UserInvalidDataException;
 import com.esosa.dungeonsanddragonscharactersheet.utils.exception.types.UserNotFoundException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserValidator {
-    public static void validateUser(User user, UserDTO userDTO){
+
+    public UserValidator() {
+    }
+
+    public void validateUserCreation (User user, UserDTO userDTO){
         if(userDTO == null){
             throw new UserInvalidDataException("User cannot be null");
         }
@@ -18,15 +24,10 @@ public class UserValidator {
         }
     }
 
-    public static void validateUser(User user, String username){
-        if(user == null){
-            throw new UserNotFoundException(String.format("User %s not found", username));
-        }
-    }
-
-    public static void validateUser(SecurityUser user, String username) {
+    public void validateUserDeletion (User user, String username){
         if(!user.getUsername().equals(username)){
             throw new UserAccessDeniedException(String.format("User %s cannot delete other users", user.getUsername()));
         }
     }
+
 }

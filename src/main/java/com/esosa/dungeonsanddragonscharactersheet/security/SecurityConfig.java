@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         config -> config
                                 .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/characters/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/character/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .userDetailsService(jpaUserDetailService)
